@@ -4,6 +4,7 @@ import styles from "@/styles/signup.module.css";
 import { useRouter } from "next/navigation";
 import { CreateUser } from "@/types/user";
 import { CreateUserApi } from "@/api/userApi";
+import { ErrorResMsg } from "@/types/error";
 
 const SigunUp = () => {
     const [userNameInput, setUserNameInput] = useState("");
@@ -21,11 +22,11 @@ const SigunUp = () => {
         const res = await CreateUserApi(createUserPayload);
 
         if (!res.ok) {
-            alert("認証エラー");
-        } else {
-            router.push("/signin");
-        }
-
+            const resMsg: ErrorResMsg = await res.json();
+            alert(resMsg.error)
+            return;
+        }        
+        router.push("/signin");
     }
 
     const onClickHandle = () => {
