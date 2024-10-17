@@ -3,15 +3,20 @@ import { UserInfo } from '@/types/user';
 import React, { useEffect, useState } from 'react';
 
 const Header = () => {
-  const [username, setUsername] = useState<string|null>(); // 仮のユーザー名
-
+  const [username, setUsername] = useState<string>("読み込み中");
   useEffect(() => {
     const getUserHandler = async () => {
       const res = await getUserInfo();
-      const userInfo: UserInfo = await res.json();
-      setUsername(userInfo.userName);
-  }
-  getUserHandler();
+
+      if (res.ok) {
+        const userInfo: UserInfo = await res.json();
+        setUsername(userInfo.userName);
+      } else {
+        setUsername("ログインが必要")
+      }
+    }
+  
+    getUserHandler();
   }, []);
 
   return (
@@ -21,6 +26,7 @@ const Header = () => {
     </header>
   );
 };
+
 const styles = {
   header: {
     display: 'flex',
