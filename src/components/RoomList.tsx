@@ -2,42 +2,28 @@ import styles from "@/styles/roomList.module.css";
 import { getAllRoomsApi } from "@/api/roomApi";
 import { RoomInfo } from "@/types/room";
 import { useEffect, useState } from "react";
+import { ErrorResMsg } from "@/types/error";
+import { useRouter } from "next/navigation";
 
 const RoomList = () => {
     const [rooms, setRooms] = useState<RoomInfo[]>([]);
-  const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
 
   useEffect(() => {
     const fetchRooms = async () => {
-        try {
-            const response = await getAllRoomsApi();
-
-            if (!response.ok) {
-                const statusCode = response.status;
-                if (statusCode === 403) {
-                  setError("現在は時間外のためお休み中zzz");  // 403エラーの場合
-                } else {
-                  setError("取得エラーが発生しました。");  // その他のエラー
-                }
-                return;
-            }
-            const data: RoomInfo[] = await response.json();
-            setRooms(data);
-          } catch  (err) {
-            console.log(err);
-            setError("取得エラーが発生しました。");  // API呼び出し自体が失敗した場合
-        }
+      const res = await getAllRoomsApi();
+      if (!res.ok) {
+        const errMsg: ErrorResMsg = await res.json();
+        console.log(errMsg);
+        router.push("/signin");
+        return;
+      }
+      const data: RoomInfo[] = await res.json();
+      setRooms(data);
     };
     fetchRooms();
-  }, []);
+  }, [router]);
 
-  if (error) {
-    if (error === "現在は時間外のためお休み中zzzまた明日") {
-      return <h2 className='outOfTime'>{error}</h2>
-    } else {
-      return <h2 className='error'>{error}</h2>
-    }
-  }
 
   return (
     <>
