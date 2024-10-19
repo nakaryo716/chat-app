@@ -3,27 +3,27 @@ import { useState } from "react";
 import styles from "@/styles/signin.module.css";
 import { loginApi } from "@/api/authApi";
 import { AuthPayload } from "@/types/auth";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { ErrorResMsg } from "@/types/error";
 
 const SignIn = () => {
     const [mailInput, setMailInput] = useState("");
     const [pwdInput, setPwdInput] = useState("");
-    const router = useRouter();
-
+    const [AuthOk, setAuthOk] = useState(false);
+    
     const loginHandler = async () => {
         const authPayload: AuthPayload = {
             clientMail: mailInput,
             clientPass: pwdInput,
         };
-        
         const res = await loginApi(authPayload);
 
         if (!res.ok) {
-            alert("認証エラー");
+            const errorRes: ErrorResMsg = await res.json();
+            alert(errorRes.error);
+            return;
         }
-
-        router.push("/");
+        setAuthOk(true);
     }
 
     const onClickHandle = () => {
@@ -32,33 +32,44 @@ const SignIn = () => {
         setPwdInput("");
     }
 
-    return (
-        <div className={styles.formContainer}>
-            <h1 className={styles.title}>ログイン</h1>
-            <div>
-                <h2>ユーザーアドレス</h2>
-                <input
-                    type="text"
-                    value={mailInput}
-                    onChange={(e) => setMailInput(e.target.value)}
-                    className={styles.inputTxt}
-                />
+    if (AuthOk) {
+        return(
+            <div className={styles.formContainer}>
+                <h3>ログイン成功</h3>
+                <a href="/" className={styles.customButton}>ホームに移動する</a>
+
             </div>
-            <div>
-                <h2>パスワード</h2>
-                <input 
-                    type="password"
-                    value={pwdInput}
-                    onChange={(e) => setPwdInput(e.target.value)}
-                    className={styles.inputTxt}
-                />
+        )
+    } else {
+        return (
+            <div className={styles.formContainer}>
+                <h1 className={styles.title}>ログイン</h1>
+                <div>
+                    <h2>ユーザーアドレス</h2>
+                    <input
+                        type="text"
+                        value={mailInput}
+                        onChange={(e) => setMailInput(e.target.value)}
+                        className={styles.inputTxt}
+                    />
+                </div>
+                <div>
+                    <h2>パスワード</h2>
+                    <input 
+                        type="password"
+                        value={pwdInput}
+                        onChange={(e) => setPwdInput(e.target.value)}
+                        className={styles.inputTxt}
+                    />
+                </div>
+                <div>
+                    <button className={styles.customButton} onClick={onClickHandle}>サインイン</button>
+                </div>
+                <Link href="/signup" className={styles.link}>ユーザー登録はこちらから</Link>
             </div>
-            <div>
-                <button className={styles.customButton} onClick={onClickHandle}>サインイン</button>
-            </div>
-            <Link href="/signup" className={styles.link}>ユーザー登録はこちらから</Link>
-        </div>
-    );
+        );
+
+    }
 }
 
 export default SignIn;

@@ -3,24 +3,25 @@ import styles from "@/styles/openRoom.module.css";
 import { CreateRoom, RoomInfo } from "@/types/room";
 import { createRoomApi } from "@/api/roomApi";
 import { useRouter } from "next/navigation";
+import { ErrorResMsg } from "@/types/error";
 
 const OpenRoom = () => {
     const [input, setInput] = useState("");
     const router = useRouter();
+    
     const createRoomHandler = async () => {
         const createRoomPayload: CreateRoom = {
             roomName: input,
         };
-
         const res = await createRoomApi(createRoomPayload);
 
         if (!res.ok) {
-            alert("チャットルームの作成に失敗しました");
-        } else {
-            const createdRoomInfo: RoomInfo = await res.json();
-            console.log(createdRoomInfo);
-            router.push(`/chat/${createdRoomInfo.roomId}`)
+            const resMeg: ErrorResMsg = await res.json();
+            alert(resMeg.error)
+            return;
         }
+        const createdRoomInfo: RoomInfo = await res.json();
+        router.push(`/chat/${createdRoomInfo.roomId}`)        
     }
 
     const onClickHandle = () => {

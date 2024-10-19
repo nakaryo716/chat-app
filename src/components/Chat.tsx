@@ -3,6 +3,8 @@ import styles from '@/styles/chat.module.css';
 import { ChatMessage } from '@/types/chat';
 import { RoomInfo } from '@/types/room';
 import { getRoomInfoApi } from '@/api/roomApi';
+import { usePathname } from 'next/navigation';
+import { ErrorResMsg } from '@/types/error';
 
 const Chat = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -10,63 +12,55 @@ const Chat = () => {
   const [input, setInput] = useState<string>('');
   const socketRef = useRef<WebSocket | null>(null);
 
-  const removeTextNum = 6;
-  const urlPath = location.pathname;
-  const roomId = urlPath.substring(removeTextNum);
-
-  //useEffectいらないかも
-  // roomIdの取得に悪さしている
+  const removePath = 6;
+  const url = usePathname();
+  const roomId = url.substring(removePath);
+  
   useEffect(() => {
     const getRoomNameHandler = async () => {
-      try {
-        const response = await getRoomInfoApi(roomId);
+      const res = await getRoomInfoApi(roomId);
 
-        if (!response.ok) {
-          throw new Error("error");
-        }
-
-        const roomInfo: RoomInfo = await response.json();
-        setroomName(roomInfo.roomName);
-      } catch {
-        console.error("failed to get room name");
-        setroomName("unkown");
+      if (!res.ok) {
+        const errMsg: ErrorResMsg = await res.json();
+        alert(errMsg);
+        return;
       }
+      const roomInfo: RoomInfo = await res.json();
+      setroomName(roomInfo.roomName);
     }  
     getRoomNameHandler();
   }, [roomId]);
-
-
-
+  
   useEffect(() => {
     const websocket = new WebSocket(`ws://localhost:8080/chat/${roomId}`);
     socketRef.current = websocket;
-
+    
     const onMessage = (event: MessageEvent<string>) => {
       const data: ChatMessage= JSON.parse(event.data);
       setMessages((prevMessages) => [...prevMessages, data]);
     };
-
+    
     websocket.addEventListener('message', onMessage);
-
+    
     return () => {
       console.log("websocket closed");
       websocket.removeEventListener('message', onMessage);
       websocket.close();
     };
   }, [roomId]); 
-
+  
   const handleSend = () => {
     if (input.trim() === '') return;
     socketRef.current?.send(input);
     setInput('');
   };
-
+  
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && e.altKey) {
       handleSend();
     }
   };
-
+  
   const formatTime = (timestamp: Date) => {
     const date = new Date(timestamp);
     return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()} ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
