@@ -35,6 +35,12 @@ const SigunUp = () => {
         setPwdInput("");
     }
 
+    const keyDownHandle = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            onClickHandle();
+        }
+    };
+
     return (
         <div className={styles.formContainer}>
             <h1 className={styles.title}>ユーザー登録</h1>
@@ -63,10 +69,11 @@ const SigunUp = () => {
                     value={pwdInput}
                     onChange={(e) => setPwdInput(e.target.value)}
                     className={styles.inputTxt}
+                    onKeyDown={keyDownHandle}
                 />
             </div>
             <div>
-                <button className={styles.customButton} onClick={onClickHandle}>サインイン</button>
+                <button className={styles.customButton} onClick={onClickHandle}>登録</button>
             </div>
         </div>
     );

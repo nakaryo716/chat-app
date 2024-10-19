@@ -32,6 +32,12 @@ const SignIn = () => {
         setPwdInput("");
     }
 
+    const keyDownHandle = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            onClickHandle();
+        }
+    };
+
     if (AuthOk) {
         return(
             <div className={styles.formContainer}>
@@ -60,6 +66,7 @@ const SignIn = () => {
                         value={pwdInput}
                         onChange={(e) => setPwdInput(e.target.value)}
                         className={styles.inputTxt}
+                        onKeyDown={keyDownHandle}
                     />
                 </div>
                 <div>
