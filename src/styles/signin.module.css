@@ -10,6 +10,7 @@
     font-family: 'Noto Sans JP', sans-serif;
     padding: 20px;
     text-align: center;
+    color: white;
 }
 
 .forms {
@@ -54,6 +55,7 @@
 
 .link {
     margin-top: 50px;
+    color: burlywood;
 }
 
 .title {
