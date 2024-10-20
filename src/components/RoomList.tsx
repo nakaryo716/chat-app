@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { errorHandle } from "@/util/errorHandl";
 
 const RoomList = memo(function RoomList() {
-  console.log("call list");
     const [rooms, setRooms] = useState<RoomInfo[]>([]);
     const router = useRouter();
 

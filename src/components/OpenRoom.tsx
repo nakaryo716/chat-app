@@ -7,7 +7,6 @@ import { ErrorResMsg } from "@/types/error";
 import { errorHandle } from "@/util/errorHandl";
 
 const OpenRoom = memo(function OpenRoom() {
-  console.log("call openroom");
     const [input, setInput] = useState("");
     const router = useRouter();
     

@@ -9,7 +9,6 @@ import { errorHandle } from "@/util/errorHandl";
 import { useRouter } from "next/navigation";
 
 const SignIn = memo (function SignIn() {
-  console.log("call signin");
     const [mailInput, setMailInput] = useState("");
     const [pwdInput, setPwdInput] = useState("");
     const [AuthOk, setAuthOk] = useState(false);

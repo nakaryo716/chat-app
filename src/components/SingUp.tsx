@@ -8,7 +8,6 @@ import { ErrorResMsg } from "@/types/error";
 import { errorHandle } from "@/util/errorHandl";
 
 const SigunUp = memo(function SignUp() {
-  console.log("call sigunup");
     
     const [userNameInput, setUserNameInput] = useState("");
     const [mailInput, setMailInput] = useState("");
