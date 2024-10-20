@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { CreateUser } from "@/types/user";
 import { createUserApi } from "@/api/userApi";
 import { ErrorResMsg } from "@/types/error";
+import { errorHandle } from "@/util/errorHandl";
 
 const SigunUp = () => {
     const [userNameInput, setUserNameInput] = useState("");
@@ -23,7 +24,7 @@ const SigunUp = () => {
 
         if (!res.ok) {
             const resMsg: ErrorResMsg = await res.json();
-            alert(resMsg.error)
+            errorHandle(resMsg, router);
             return;
         }        
         router.push("/signin");

@@ -4,6 +4,7 @@ import { RoomInfo } from "@/types/room";
 import { useEffect, useState } from "react";
 import { ErrorResMsg } from "@/types/error";
 import { useRouter } from "next/navigation";
+import { errorHandle } from "@/util/errorHandl";
 
 const RoomList = () => {
     const [rooms, setRooms] = useState<RoomInfo[]>([]);
@@ -14,8 +15,7 @@ const RoomList = () => {
       const res = await getAllRoomsApi();
       if (!res.ok) {
         const errMsg: ErrorResMsg = await res.json();
-        console.log(errMsg);
-        router.push("/signin");
+        errorHandle(errMsg, router);
         return;
       }
       const data: RoomInfo[] = await res.json();

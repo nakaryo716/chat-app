@@ -3,14 +3,16 @@ import styles from '@/styles/chat.module.css';
 import { ChatMessage } from '@/types/chat';
 import { RoomInfo } from '@/types/room';
 import { getRoomInfoApi } from '@/api/roomApi';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { ErrorResMsg } from '@/types/error';
+import { errorHandle } from '@/util/errorHandl';
 
 const Chat = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [roomName, setroomName] = useState("");
   const [input, setInput] = useState<string>('');
   const socketRef = useRef<WebSocket | null>(null);
+  const router = useRouter();
 
   const removePath = 6;
   const url = usePathname();
@@ -22,14 +24,14 @@ const Chat = () => {
 
       if (!res.ok) {
         const errMsg: ErrorResMsg = await res.json();
-        alert(errMsg);
+        errorHandle(errMsg, router);
         return;
       }
       const roomInfo: RoomInfo = await res.json();
       setroomName(roomInfo.roomName);
     }  
     getRoomNameHandler();
-  }, [roomId]);
+  }, [roomId, router]);
   
   useEffect(() => {
     const websocket = new WebSocket(`ws://localhost:8080/chat/${roomId}`);

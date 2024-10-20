@@ -5,11 +5,14 @@ import { loginApi } from "@/api/authApi";
 import { AuthPayload } from "@/types/auth";
 import Link from "next/link";
 import { ErrorResMsg } from "@/types/error";
+import { errorHandle } from "@/util/errorHandl";
+import { useRouter } from "next/navigation";
 
 const SignIn = () => {
     const [mailInput, setMailInput] = useState("");
     const [pwdInput, setPwdInput] = useState("");
     const [AuthOk, setAuthOk] = useState(false);
+    const router = useRouter();
     
     const loginHandler = async () => {
         const authPayload: AuthPayload = {
@@ -20,7 +23,7 @@ const SignIn = () => {
 
         if (!res.ok) {
             const errorRes: ErrorResMsg = await res.json();
-            alert(errorRes.error);
+            errorHandle(errorRes, router)
             return;
         }
         setAuthOk(true);
