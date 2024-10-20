@@ -65,7 +65,7 @@ const Chat = () => {
   
   const formatTime = (timestamp: Date) => {
     const date = new Date(timestamp);
-    return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()} ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+    return `${date.getFullYear()}/${date.getMonth() + 1 }/${date.getDate()} ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
   };
 
   return (
