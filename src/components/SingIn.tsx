@@ -12,6 +12,7 @@ const SignIn = memo (function SignIn() {
     const [mailInput, setMailInput] = useState("");
     const [pwdInput, setPwdInput] = useState("");
     const [AuthOk, setAuthOk] = useState(false);
+    const [failed, setFailed] = useState(false);
     const router = useRouter();
     
     const loginHandler = async () => {
@@ -22,6 +23,7 @@ const SignIn = memo (function SignIn() {
         const res = await loginApi(authPayload);
 
         if (!res.ok) {
+            setFailed(true);
             const errorRes: ErrorResMsg = await res.json();
             errorHandle(errorRes, router)
             return;
@@ -30,6 +32,7 @@ const SignIn = memo (function SignIn() {
     }
 
     const onClickHandle = () => {
+        if (!mailInput || !pwdInput) return;
         loginHandler();
         setMailInput("");
         setPwdInput("");
@@ -46,12 +49,16 @@ const SignIn = memo (function SignIn() {
             <div className={styles.formContainer}>
                 <h3>ログイン成功</h3>
                 <a href="/" className={styles.customButton}>ホームに移動する</a>
-
             </div>
         )
-    } else {
+    } 
+
+    if (!AuthOk) {
         return (
             <div className={styles.formContainer}>
+            <div>
+                {failed ? <p>認証に失敗しました</p>:null}
+            </div>
                 <h1 className={styles.title}>ログイン</h1>
                 <div>
                     <h2>ユーザーアドレス</h2>
@@ -77,8 +84,7 @@ const SignIn = memo (function SignIn() {
                 </div>
                 <Link href="/signup" className={styles.link}>ユーザー登録はこちらから</Link>
             </div>
-        );
-
+        );        
     }
 })
 

@@ -12,6 +12,7 @@ const SigunUp = memo(function SignUp() {
     const [userNameInput, setUserNameInput] = useState("");
     const [mailInput, setMailInput] = useState("");
     const [pwdInput, setPwdInput] = useState("");
+    const [failed, setFailed] = useState(false);
     const router = useRouter();
 
     const loginHandler = async () => {
@@ -24,6 +25,7 @@ const SigunUp = memo(function SignUp() {
         const res = await createUserApi(createUserPayload);
 
         if (!res.ok) {
+            setFailed(true);
             const resMsg: ErrorResMsg = await res.json();
             errorHandle(resMsg, router);
             return;
@@ -32,6 +34,7 @@ const SigunUp = memo(function SignUp() {
     }
 
     const onClickHandle = () => {
+        if(!userNameInput || !mailInput || !pwdInput) return;
         loginHandler();
         setMailInput("");
         setPwdInput("");
@@ -45,11 +48,15 @@ const SigunUp = memo(function SignUp() {
 
     return (
         <div className={styles.formContainer}>
+            <div>
+                {failed ? <p>登録に失敗しました</p> : null}
+            </div>
             <h1 className={styles.title}>ユーザー登録</h1>
             <div>
                 <h2>ユーザー名</h2>
                 <input
                     type="text"
+                    placeholder="ハンドルネーム"
                     value={userNameInput}
                     onChange={(e) => setUserNameInput(e.target.value)}
                     className={styles.inputTxt}
@@ -59,15 +66,17 @@ const SigunUp = memo(function SignUp() {
                 <h2>ユーザーアドレス</h2>
                 <input
                     type="text"
+                    placeholder="example1234@mail.com"
                     value={mailInput}
                     onChange={(e) => setMailInput(e.target.value)}
                     className={styles.inputTxt}
-                />
+                    />
             </div>
             <div>
                 <h2>パスワード</h2>
                 <input 
                     type="password"
+                    placeholder="8文字以上64字以下"
                     value={pwdInput}
                     onChange={(e) => setPwdInput(e.target.value)}
                     className={styles.inputTxt}

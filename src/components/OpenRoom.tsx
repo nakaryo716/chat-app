@@ -26,6 +26,7 @@ const OpenRoom = memo(function OpenRoom() {
     }
 
     const onClickHandle = () => {
+        if (!input) return;
         createRoomHandler()
         setInput("");
     }
