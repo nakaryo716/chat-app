@@ -42,6 +42,7 @@
     font-size: 14px;
     background-color: #212830;
     margin-right: 5px;
+    color: white;
   }
   
   .sendButton {
@@ -70,6 +71,7 @@
 .messageMetaData {
   display: flex;  /* flexboxを使用 */
   justify-content: space-between;
+  color: white
   /* font-size: normal; */
 }
 
@@ -86,6 +88,7 @@
 .messageBodyText {
   margin: 10px;
   word-wrap: normal;
+  color: white;
 }
 
 .roomName {

@@ -1,12 +1,14 @@
 'use client'
-import { useState } from "react";
+import { memo, useState } from "react";
 import styles from "@/styles/signup.module.css";
 import { useRouter } from "next/navigation";
 import { CreateUser } from "@/types/user";
-import { CreateUserApi } from "@/api/userApi";
+import { createUserApi } from "@/api/userApi";
 import { ErrorResMsg } from "@/types/error";
+import { errorHandle } from "@/util/errorHandl";
 
-const SigunUp = () => {
+const SigunUp = memo(function SignUp() {
+    
     const [userNameInput, setUserNameInput] = useState("");
     const [mailInput, setMailInput] = useState("");
     const [pwdInput, setPwdInput] = useState("");
@@ -19,11 +21,11 @@ const SigunUp = () => {
             userPass: pwdInput,
         };
         
-        const res = await CreateUserApi(createUserPayload);
+        const res = await createUserApi(createUserPayload);
 
         if (!res.ok) {
             const resMsg: ErrorResMsg = await res.json();
-            alert(resMsg.error)
+            errorHandle(resMsg, router);
             return;
         }        
         router.push("/signin");
@@ -34,6 +36,12 @@ const SigunUp = () => {
         setMailInput("");
         setPwdInput("");
     }
+
+    const keyDownHandle = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            onClickHandle();
+        }
+    };
 
     return (
         <div className={styles.formContainer}>
@@ -63,13 +71,14 @@ const SigunUp = () => {
                     value={pwdInput}
                     onChange={(e) => setPwdInput(e.target.value)}
                     className={styles.inputTxt}
+                    onKeyDown={keyDownHandle}
                 />
             </div>
             <div>
-                <button className={styles.customButton} onClick={onClickHandle}>サインイン</button>
+                <button className={styles.customButton} onClick={onClickHandle}>登録</button>
             </div>
         </div>
     );
-}
+})
 
 export default SigunUp;

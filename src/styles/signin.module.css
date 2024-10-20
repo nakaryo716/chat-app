@@ -10,6 +10,7 @@
     font-family: 'Noto Sans JP', sans-serif;
     padding: 20px;
     text-align: center;
+    color: white;
 }
 
 .forms {
@@ -42,6 +43,7 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-decoration: none;
 }
 
 .customButton:hover {
@@ -54,6 +56,7 @@
 
 .link {
     margin-top: 50px;
+    color: burlywood;
 }
 
 .title {

@@ -1,15 +1,18 @@
 'use client'
-import { useState } from "react";
+import { memo, useState } from "react";
 import styles from "@/styles/signin.module.css";
 import { loginApi } from "@/api/authApi";
 import { AuthPayload } from "@/types/auth";
 import Link from "next/link";
 import { ErrorResMsg } from "@/types/error";
+import { errorHandle } from "@/util/errorHandl";
+import { useRouter } from "next/navigation";
 
-const SignIn = () => {
+const SignIn = memo (function SignIn() {
     const [mailInput, setMailInput] = useState("");
     const [pwdInput, setPwdInput] = useState("");
     const [AuthOk, setAuthOk] = useState(false);
+    const router = useRouter();
     
     const loginHandler = async () => {
         const authPayload: AuthPayload = {
@@ -20,7 +23,7 @@ const SignIn = () => {
 
         if (!res.ok) {
             const errorRes: ErrorResMsg = await res.json();
-            alert(errorRes.error);
+            errorHandle(errorRes, router)
             return;
         }
         setAuthOk(true);
@@ -31,6 +34,12 @@ const SignIn = () => {
         setMailInput("");
         setPwdInput("");
     }
+
+    const keyDownHandle = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            onClickHandle();
+        }
+    };
 
     if (AuthOk) {
         return(
@@ -60,6 +69,7 @@ const SignIn = () => {
                         value={pwdInput}
                         onChange={(e) => setPwdInput(e.target.value)}
                         className={styles.inputTxt}
+                        onKeyDown={keyDownHandle}
                     />
                 </div>
                 <div>
@@ -70,6 +80,6 @@ const SignIn = () => {
         );
 
     }
-}
+})
 
 export default SignIn;

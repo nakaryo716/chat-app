@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import styles from "@/styles/openRoom.module.css";
 import { CreateRoom, RoomInfo } from "@/types/room";
 import { createRoomApi } from "@/api/roomApi";
 import { useRouter } from "next/navigation";
 import { ErrorResMsg } from "@/types/error";
+import { errorHandle } from "@/util/errorHandl";
 
-const OpenRoom = () => {
+const OpenRoom = memo(function OpenRoom() {
     const [input, setInput] = useState("");
     const router = useRouter();
     
@@ -17,11 +18,11 @@ const OpenRoom = () => {
 
         if (!res.ok) {
             const resMeg: ErrorResMsg = await res.json();
-            alert(resMeg.error)
+            errorHandle(resMeg, router);
             return;
         }
         const createdRoomInfo: RoomInfo = await res.json();
-        router.push(`/chat/${createdRoomInfo.roomId}`)        
+        router.push(`/chat/${createdRoomInfo.roomId}`)  
     }
 
     const onClickHandle = () => {
@@ -49,6 +50,6 @@ const OpenRoom = () => {
             <button onClick={onClickHandle} className={styles.customButtonRoom}>作成する</button>
         </div>
     )
-}
+})
 
 export default OpenRoom;
