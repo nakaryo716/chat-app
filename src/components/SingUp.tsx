@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { memo, useState } from "react";
 import styles from "@/styles/signup.module.css";
 import { useRouter } from "next/navigation";
 import { CreateUser } from "@/types/user";
@@ -7,7 +7,9 @@ import { createUserApi } from "@/api/userApi";
 import { ErrorResMsg } from "@/types/error";
 import { errorHandle } from "@/util/errorHandl";
 
-const SigunUp = () => {
+const SigunUp = memo(function SignUp() {
+  console.log("call sigunup");
+    
     const [userNameInput, setUserNameInput] = useState("");
     const [mailInput, setMailInput] = useState("");
     const [pwdInput, setPwdInput] = useState("");
@@ -78,6 +80,6 @@ const SigunUp = () => {
             </div>
         </div>
     );
-}
+})
 
 export default SigunUp;

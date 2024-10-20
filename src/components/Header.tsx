@@ -1,8 +1,9 @@
 import { getUserInfo } from '@/api/userApi';
 import { UserInfo } from '@/types/user';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
-const Header = () => {
+const Header = memo(function Header() {
+  console.log("call header");
   const [username, setUsername] = useState<string>("読み込み中");
   useEffect(() => {
     const getUserHandler = async () => {
@@ -25,7 +26,7 @@ const Header = () => {
       <span style={styles.username}>{username}</span>
     </header>
   );
-};
+});
 
 const styles = {
   header: {

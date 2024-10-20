@@ -1,12 +1,13 @@
 import styles from "@/styles/roomList.module.css";
 import { getAllRoomsApi } from "@/api/roomApi";
 import { RoomInfo } from "@/types/room";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { ErrorResMsg } from "@/types/error";
 import { useRouter } from "next/navigation";
 import { errorHandle } from "@/util/errorHandl";
 
-const RoomList = () => {
+const RoomList = memo(function RoomList() {
+  console.log("call list");
     const [rooms, setRooms] = useState<RoomInfo[]>([]);
     const router = useRouter();
 
@@ -45,6 +46,6 @@ const RoomList = () => {
     </div>
     </>
   );
-}
+})
 
 export default RoomList;

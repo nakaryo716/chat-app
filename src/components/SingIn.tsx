@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { memo, useState } from "react";
 import styles from "@/styles/signin.module.css";
 import { loginApi } from "@/api/authApi";
 import { AuthPayload } from "@/types/auth";
@@ -8,7 +8,8 @@ import { ErrorResMsg } from "@/types/error";
 import { errorHandle } from "@/util/errorHandl";
 import { useRouter } from "next/navigation";
 
-const SignIn = () => {
+const SignIn = memo (function SignIn() {
+  console.log("call signin");
     const [mailInput, setMailInput] = useState("");
     const [pwdInput, setPwdInput] = useState("");
     const [AuthOk, setAuthOk] = useState(false);
@@ -80,6 +81,6 @@ const SignIn = () => {
         );
 
     }
-}
+})
 
 export default SignIn;

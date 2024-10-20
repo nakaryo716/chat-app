@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import styles from "@/styles/openRoom.module.css";
 import { CreateRoom, RoomInfo } from "@/types/room";
 import { createRoomApi } from "@/api/roomApi";
@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { ErrorResMsg } from "@/types/error";
 import { errorHandle } from "@/util/errorHandl";
 
-const OpenRoom = () => {
+const OpenRoom = memo(function OpenRoom() {
+  console.log("call openroom");
     const [input, setInput] = useState("");
     const router = useRouter();
     
@@ -50,6 +51,6 @@ const OpenRoom = () => {
             <button onClick={onClickHandle} className={styles.customButtonRoom}>作成する</button>
         </div>
     )
-}
+})
 
 export default OpenRoom;

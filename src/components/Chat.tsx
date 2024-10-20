@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import styles from '@/styles/chat.module.css'; 
 import { ChatMessage } from '@/types/chat';
 import { RoomInfo } from '@/types/room';
@@ -7,7 +7,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { ErrorResMsg } from '@/types/error';
 import { errorHandle } from '@/util/errorHandl';
 
-const Chat = () => {
+const Chat = memo(function Chat() {
+  console.log("call chat");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [roomName, setroomName] = useState("");
   const [input, setInput] = useState<string>('');
@@ -101,6 +102,6 @@ const Chat = () => {
       </div>
     </>
   );
-};
+});
 
 export default Chat;

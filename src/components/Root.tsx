@@ -1,7 +1,9 @@
 import Link from "next/link";
 import styles from "@/styles/root.module.css";
+import { memo } from "react";
 
-const Root = () => {
+const Root = memo(function Root() {
+  console.log("call root");
   return (
     <div className={styles.container}>
         <div className={styles.content}>
@@ -23,5 +25,5 @@ const Root = () => {
         </div>
     </div>
   );
-}
+})
 export default Root;
