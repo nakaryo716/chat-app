@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "@/styles/signup.module.css";
 import { useRouter } from "next/navigation";
 import { CreateUser } from "@/types/user";
-import { CreateUserApi } from "@/api/userApi";
+import { createUserApi } from "@/api/userApi";
 import { ErrorResMsg } from "@/types/error";
 
 const SigunUp = () => {
@@ -19,7 +19,7 @@ const SigunUp = () => {
             userPass: pwdInput,
         };
         
-        const res = await CreateUserApi(createUserPayload);
+        const res = await createUserApi(createUserPayload);
 
         if (!res.ok) {
             const resMsg: ErrorResMsg = await res.json();

@@ -6,10 +6,9 @@ const URL = "http://localhost:8080/user";
 async function apiRequest(options: RequestInit) {
     const response = await fetch (URL, options);    
     return response;
-
 }
 
-export function CreateUserApi(newUserPayload: CreateUser): Promise<Response> {
+export function createUserApi(newUserPayload: CreateUser): Promise<Response> {
     return apiRequest({
         method: "POST",
         mode: "cors",
