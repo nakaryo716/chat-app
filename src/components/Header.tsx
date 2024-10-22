@@ -2,6 +2,7 @@ import styles from '@/styles/header.module.css';
 import { getUserInfo } from '@/api/userApi';
 import { UserInfo } from '@/types/user';
 import React, { memo, useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const Header = memo(function Header() {
   const [username, setUsername] = useState<string>("読み込み中");
@@ -23,7 +24,7 @@ const Header = memo(function Header() {
   return (
     <header className={styles.header}>
       <a href="/" className={styles.logo}>Pack</a>
-      <span className={styles.username}>{username}</span>
+      <Link href="/user" className={styles.username}>{username}</Link>
     </header>
   );
 });
