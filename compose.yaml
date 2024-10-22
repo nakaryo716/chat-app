@@ -1,0 +1,9 @@
+services:
+  next-app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "3000:3000"
+    tty: true
+    command: sh -c "npm run build && npm start"
