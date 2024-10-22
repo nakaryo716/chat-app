@@ -27,6 +27,14 @@ export async function getRoomInfoApi(targetId: string): Promise<Response> {
     });
 }
 
+export async function getOwnerRoomInfoApi(): Promise<Response> {
+    return apiRequest("/room/self", { 
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+    });
+}
+
 export async function getAllRoomsApi(): Promise<Response> {
     return apiRequest("/room", {
         method: "GET",
