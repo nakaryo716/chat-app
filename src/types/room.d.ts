@@ -3,7 +3,7 @@ export type CreateRoom  = {
 }
 
 export type RoomInfo = {
-    roomId: number,
+    roomId: string,
     roomName: string,
     createdById: string,
     createdByName: string,
