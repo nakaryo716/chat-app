@@ -1,9 +1,8 @@
 import { CreateRoom } from "@/types/room";
-
-const BASE_URL = "http://localhost:8080";
+import { HostApi } from "./api";
 
 async function apiRequest(endpoint: string, options: RequestInit): Promise<Response> {
-    const response = await fetch(`${BASE_URL}${endpoint}`, options);
+    const response = await fetch(`${HostApi}${endpoint}`, options);
     return response;
 }
 
