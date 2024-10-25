@@ -15,7 +15,7 @@ const ChatHistory = memo(function ChatHistory({ roomId, socketRef }: ChatMessage
   };
 
   useEffect(() => {
-    const websocket = new WebSocket(`ws://localhost:8080/chat/${roomId}`);
+    const websocket = new WebSocket(`wss://localhost:8080/chat/${roomId}`);
     socketRef.current = websocket;
     
     const onMessage = (event: MessageEvent<string>) => {

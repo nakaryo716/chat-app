@@ -1,9 +1,8 @@
 import { AuthPayload } from "@/types/auth";
-
-const URL = "http://localhost:8080/login";
+import { HostApi } from "./api";
 
 async function apiRequest(options: RequestInit): Promise<Response> {
-    const response = await fetch(URL, options);
+    const response = await fetch(`${HostApi}/login`, options);
     return response;
 }
 
