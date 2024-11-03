@@ -1,3 +1,4 @@
+import { HostWsApi } from "@/api/api";
 import styles from "@/styles/chat.module.css";
 import { ChatMessage } from "@/types/chat";
 import { memo, useEffect, useState } from "react";
@@ -15,7 +16,7 @@ const ChatHistory = memo(function ChatHistory({ roomId, socketRef }: ChatMessage
   };
 
   useEffect(() => {
-    const websocket = new WebSocket(`wss://localhost:8080/chat/${roomId}`);
+    const websocket = new WebSocket(`${HostWsApi}/chat/${roomId}`);
     socketRef.current = websocket;
     
     const onMessage = (event: MessageEvent<string>) => {
