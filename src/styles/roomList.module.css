@@ -8,7 +8,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     color: #ecf0f1;
     overflow-x: hidden;
-    overflow-y: auto; 
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .header {
@@ -79,9 +80,9 @@
 }
 
 .customButton:hover {
-    background-color: #ff6500; /* ホバー時の色 */
+    background-color: #ff6500;
 }
 
 .customButton:active {
-    background-color: #cc0000; /* 押下時の色 */
+    background-color: #cc0000;
 }
