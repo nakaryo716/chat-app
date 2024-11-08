@@ -1,97 +1,99 @@
 .chatContainer {
-    display: flex;
-    flex-direction: column;
-    height: 700px;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    border: 3px solid #3d444d;
-  }
-  
-  .messageContainer {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
-    background-color: #363e48;
-  }
-  
-  .message {
-    border-bottom: 1px dotted #ccc;
-    padding: 10px 0;
-    font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  height: 80svh;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border: none;
+}
 
-  }
+.messageContainer {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #363e48;
+}
+
+.message {
+  border-bottom: 1px dotted #ccc;
+  padding: 10px 0;
+  font-size: 14px;
+
+}
+
+.inputContainer {
+  display: flex;
+  border-top: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #c0c0c0;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 10px;
+  position: sticky;
+  top: 100vh;
+}
+
+.input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background-color: #212830;
+  margin-right: 5px;
+  color: white;
+  font-size: 16.1px;
+}
+
+.sendButton {
+  padding: 8px 16px;
+  background-color: #8ab46d;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
   
-  .inputContainer {
-    display: flex;
-    border-top: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 10px;
-    background-color: #c0c0c0;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    margin-top: 10px;
-  }
-  
-  .input {
-    flex: 1;
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    background-color: #212830;
-    margin-right: 5px;
-    color: white;
-  }
-  
-  .sendButton {
-    padding: 8px 16px;
-    background-color: #8ab46d;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    
-  }
-  
-  .sendButton:hover {
-    background-color: #a7da84; /* ホバー時の色 */
+}
+
+.sendButton:hover {
+  background-color: #a7da84;
 }
 
 .sendButton:active {
-    background-color: #62814e; /* 押下時の色 */
-}
-
-.roomName {
-    text-align: center;
-}
-
-.messageMetaData {
-  display: flex;  /* flexboxを使用 */
-  justify-content: space-between;
-  color: white
-  /* font-size: normal; */
-}
-
-.messageUserName {
-  color: #65d0de;
-}
-
-.messageBody {
-  font-size: medium;
-  max-width: 700px;
-  word-wrap: normal;
-}
-
-.messageBodyText {
-  margin: 10px;
-  word-wrap: normal;
-  color: white;
+  background-color: #62814e;
 }
 
 .roomName {
   text-align: center;
-  color: #e3a96c;
+}
+
+.messageMetaData {
+display: flex;
+justify-content: space-between;
+color: white
+}
+
+.messageUserName {
+color: #65d0de;
+}
+
+.messageBody {
+font-size: medium;
+max-width: 700px;
+word-wrap: normal;
+}
+
+.messageBodyText {
+margin: 10px;
+word-wrap: normal;
+color: white;
+}
+
+.roomName {
+text-align: center;
+color: #e3a96c;
 }

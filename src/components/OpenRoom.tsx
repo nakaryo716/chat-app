@@ -39,7 +39,7 @@ const OpenRoom = memo(function OpenRoom() {
 
     return (
         <div className={styles.userRoomContainer}>
-            <h1 className={styles.title}>チャットルームを作成する</h1>
+            <h1 className={styles.title}>チャットルームの作成</h1>
             <input
             type="text"
             value={input}
