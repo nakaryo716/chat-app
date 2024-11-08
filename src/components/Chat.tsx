@@ -1,3 +1,5 @@
+import styles from '@/styles/chat.module.css'
+
 import React, { useRef, memo } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -14,9 +16,11 @@ const Chat = memo(function Chat() {
   
   return (
     <>
-        <ChatRoomName roomId={roomId}/>
+      <ChatRoomName roomId={roomId}/>
+      <div className={styles.chatContainer}>
         <ChatHistory roomId={roomId} socketRef={socketRef} />
         <ChatInput socketRef={socketRef} />
+      </div>
     </>
   );
 });
