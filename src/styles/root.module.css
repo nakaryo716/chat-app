@@ -1,9 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100vh;
+    align-items: center;
     padding: 20px;
     color: #c0c0c0;
     box-sizing: border-box;
@@ -41,7 +40,7 @@
     gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
-    width: 100%; /* 幅いっぱいにする */
+    width: 100%;
 }
 
 .customButton1 {
@@ -58,11 +57,11 @@
 }
 
 .customButton1:hover {
-    background-color: #a7da84; /* ホバー時の色 */
+    background-color: #a7da84;
 }
 
 .customButton1:active {
-    background-color: #62814e; /* 押下時の色 */
+    background-color: #62814e;
 }
 
 
@@ -80,11 +79,11 @@
 }
 
 .customButton2:hover {
-    background-color: #eb8aff; /* ホバー時の色 */
+    background-color: #eb8aff;
 }
 
 .customButton2:active {
-    background-color: #70447d; /* 押下時の色 */
+    background-color: #70447d;
 }
 
 .customButton3 {
@@ -101,9 +100,9 @@
 }
 
 .customButton3:hover {
-    background-color: #65d0de; /* ホバー時の色 */
+    background-color: #65d0de;
 }
 
 .customButton3:active {
-    background-color: #4da0ab; /* 押下時の色 */
+    background-color: #4da0ab;
 }
