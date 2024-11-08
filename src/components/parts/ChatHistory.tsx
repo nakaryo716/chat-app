@@ -33,7 +33,6 @@ const ChatHistory = memo(function ChatHistory({ roomId, socketRef }: ChatMessage
   }, [roomId, socketRef]); 
 
   return (
-    <div className={styles.chatContainer}>
         <div className={styles.messageContainer}>
           {messages.map((message, index) => (
             <div key={index} className={styles.message}>
@@ -47,7 +46,6 @@ const ChatHistory = memo(function ChatHistory({ roomId, socketRef }: ChatMessage
             </div>
           ))}
         </div>
-      </div>
   )
 });
 
