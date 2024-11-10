@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
+# chat-app-server
+## Overview
+WebSocket通信を使用したリアルタイムチャットアプリケーション  
+NextJsを使用し、サーバーサイドは[chat-app-server](https://github.com/nakaryo716/chat-app-server)を使用しています。  
 ## Getting Started
-
-First, run the development server:
-
+### Prerequisites
+以下のソフトウェアが必要です:
+- [Docker](https://www.docker.com/)
+### Installation And Run
+1. リポジトリをクローンします:
+    ```bash
+    git clone https://github.com/nakaryo716/chat-app
+    cd chat-app
+    ```
+2. SSL証明書の作成を行います:  
+```./nginx/ssl/README.md```を参照し、OpenSSLを使用して証明書を作成します。
+3. Dockerコンテナを立ち上げます:  
+    ```bash
+    docker compose up
+    ```
+4. nginx, next-appコンテナが起動し、使用可能になります。デフォルトではhttps://localhostでアクセス可能です。  
+ポートを変更したい場合は```compose.yaml```の```port```を変更してください。  
+nginxのリバースプロキシによって```https://localhost:443``` >> ```http://localhost:3000```にリダイレクトされています。  
+port
+    ```
+    container name: port
+    ------------------------
+    nginx         : 443, 180
+    app           : 3000
+    ```
+## Communicate with WebSocket Server
+認証やWebSocket通信などのサーバーサイドの実装は以下のリポジトリから取得し、実行することができます。  
+[chat-app-server](https://github.com/nakaryo716/chat-app-server)リポジトリのclone
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/nakaryo716/chat-app-server
 ```
+```bash
+cd chat-app
+```
+dockerコンテナの起動
+```
+docker compose up
+```
+詳しい起動の仕方については[README.md](https://github.com/nakaryo716/chat-app-server/blob/main/README.md)を参照してください。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+このプロジェクトは MIT ライセンスに基づいてライセンスされています。詳細については、LICENSE ファイルを参照してください。
