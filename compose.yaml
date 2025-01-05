@@ -10,12 +10,3 @@ services:
     volumes:
       - .:/app
     command: sh -c "npm run build && npm start"
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    ports:
-      - 80:80
-      - 443:443
-    depends_on:
-      - next-app
