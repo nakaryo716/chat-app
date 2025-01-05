@@ -1,4 +1,10 @@
 # chat-app-server
+![img](./imgs/home.png)
+![img](./imgs/user.png)
+![img](./imgs/login.png)
+![img](./imgs/chat_room.png)
+![img](./imgs/chat_room_reader.png)
+![img](./imgs/chat.png)
 ## Overview
 WebSocket通信を使用したリアルタイムチャットアプリケーション  
 NextJsを使用し、サーバーサイドは[chat-app-server](https://github.com/nakaryo716/chat-app-server)を使用しています。  
@@ -12,36 +18,28 @@ NextJsを使用し、サーバーサイドは[chat-app-server](https://github.co
     git clone https://github.com/nakaryo716/chat-app
     cd chat-app
     ```
-2. SSL証明書の作成を行います:  
-```./nginx/ssl/README.md```を参照し、OpenSSLを使用して証明書を作成します。
-3. Dockerコンテナを立ち上げます:  
+2. 依存関係のインストールを行います
+    ```bash
+    npm i
+    ```
+3. ```src/api/api.ts```のサーバーサイドのURLを自身のコンピュータのIPアドレスに設定してください
+    ```typescript
+    export const HostApi = "https://192.168.1.0:1443";
+    export const HostWsApi = "wss://192.168.1.0:1443";
+    ```
+
+4. Dockerコンテナを立ち上げます:  
     ```bash
     docker compose up
     ```
-4. nginx, next-appコンテナが起動し、使用可能になります。デフォルトではhttps://localhostでアクセス可能です。  
-ポートを変更したい場合は```compose.yaml```の```port```を変更してください。  
-nginxのリバースプロキシによって```https://localhost:443``` >> ```http://localhost:3000```にリダイレクトされています。  
-port
-    ```
-    container name: port
-    ------------------------
-    nginx         : 443, 180
-    app           : 3000
-    ```
+5. next-appコンテナが起動し、使用可能になります
+
 ## Communicate with WebSocket Server
 認証やWebSocket通信などのサーバーサイドの実装は以下のリポジトリから取得し、実行することができます。  
-[chat-app-server](https://github.com/nakaryo716/chat-app-server)リポジトリのclone
-```bash
-git clone https://github.com/nakaryo716/chat-app-server
-```
-```bash
-cd chat-app
-```
-dockerコンテナの起動
-```
-docker compose up
-```
-詳しい起動の仕方については[README.md](https://github.com/nakaryo716/chat-app-server/blob/main/README.md)を参照してください。
+[chat-app-server](https://github.com/nakaryo716/chat-app-server)  
+Nginxを使用したリバースプロキシで通信を行います  
+実行方法については
+[chat-app-proxy-example](https://github.com/nakaryo716/chat-app-proxy-example)の```アプリケーションの全体の実行```を御覧下さい
 
 ## License
 このプロジェクトは MIT ライセンスに基づいてライセンスされています。詳細については、LICENSE ファイルを参照してください。
